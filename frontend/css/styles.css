@@ -1,0 +1,98 @@
+/* Base Styles & Overrides */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #ff6b6b;
+  --primary-hover: #ff5252;
+  --secondary: #4ecdc4;
+  --dark: #2d3436;
+  --light: #f9f9f9;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--light);
+  color: var(--dark);
+  scroll-behavior: smooth;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(45, 52, 54, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Micro-animations */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* Custom Gradients */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #ff6b6b; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff5252; 
+}
+
+/* Loader */
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ff6b6b;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

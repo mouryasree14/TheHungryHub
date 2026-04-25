@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | The Hungry Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#ff6b6b', 'primary-hover': '#ff5252', secondary: '#4ecdc4', dark: '#2d3436' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="glass fixed w-full z-50 bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-2">
+                    <i class="fa-solid fa-utensils text-primary text-2xl"></i>
+                    <span class="font-bold text-2xl tracking-tight">The Hungry <span class="text-primary">Hub</span></span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8" id="nav-links"></div>
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-primary focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center" id="mobile-nav-links"></div>
+        </div>
+    </nav>
+
+    <div class="flex-grow pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar -->
+            <div class="w-full md:w-1/4">
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 text-center sticky top-28">
+                    <div class="w-24 h-24 mx-auto bg-primary/20 text-primary rounded-full flex items-center justify-center text-4xl mb-4">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h2 id="user-name" class="font-bold text-xl">Loading...</h2>
+                    <p id="user-email" class="text-sm text-gray-500 mb-6"></p>
+                    
+                    <div class="space-y-2 text-left">
+                        <button onclick="switchTab('planner')" id="tab-planner" class="w-full text-left px-4 py-3 rounded-xl bg-primary/10 text-primary font-medium transition flex items-center gap-3">
+                            <i class="fa-regular fa-calendar"></i> Meal Planner
+                        </button>
+                        <button onclick="switchTab('profile')" id="tab-profile" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition flex items-center gap-3">
+                            <i class="fa-solid fa-gear"></i> Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="w-full md:w-3/4">
+                
+                <!-- Meal Planner Tab -->
+                <div id="content-planner" class="space-y-6">
+                    <div class="flex justify-between items-center bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                        <h2 class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid fa-calendar-week text-primary"></i> Your Meal Plan</h2>
+                        <input type="week" id="week-selector" class="p-2 border border-gray-200 rounded-lg outline-none focus:border-primary">
+                    </div>
+
+                    <div id="planner-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Profile Settings Tab -->
+                <div id="content-profile" class="hidden bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-4">Profile Settings</h2>
+                    <form id="profile-form" class="space-y-6 max-w-lg">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="prof-name" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Dietary Preference</label>
+                            <select id="prof-pref" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary outline-none">
+                                <option value="Any">Any</option>
+                                <option value="Vegetarian">Vegetarian</option>
+                                <option value="Vegan">Vegan</option>
+                                <option value="Non-Vegetarian">Non-Vegetarian</option>
+                                <option value="Pescatarian">Pescatarian</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-xl font-medium transition">Save Changes</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!localStorage.getItem('token')) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                currentUser = await api.user.getProfile();
+                document.getElementById('user-name').textContent = currentUser.name;
+                document.getElementById('user-email').textContent = currentUser.email;
+                
+                // Populate profile form
+                document.getElementById('prof-name').value = currentUser.name;
+                document.getElementById('prof-pref').value = currentUser.preference;
+
+                // Set current week
+                const now = new Date();
+                const weekStr = now.getFullYear() + '-W' + String(getWeekNumber(now)).padStart(2, '0');
+                document.getElementById('week-selector').value = weekStr;
+                
+                loadMealPlan(weekStr);
+
+            } catch (error) {
+                showToast('Failed to load user data', 'error');
+                if (error.message === 'Unauthorized') logout();
+            }
+        });
+
+        // Helper to get ISO week number
+        function getWeekNumber(d) {
+            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1)/7);
+        }
+
+        document.getElementById('week-selector').addEventListener('change', (e) => {
+            loadMealPlan(e.target.value);
+        });
+
+        async function loadMealPlan(week) {
+            try {
+                const plans = await api.planner.get(currentUser.user_id, week);
+                const grid = document.getElementById('planner-grid');
+                
+                if (plans.length === 0) {
+                    grid.innerHTML = '<div class="col-span-full text-center py-10 bg-white rounded-2xl border border-gray-100"><p class="text-gray-500">No meals planned for this week.</p><a href="recipes.html" class="inline-block mt-4 text-primary font-medium hover:underline">Find Recipes</a></div>';
+                    return;
+                }
+
+                // Group by day
+                const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                let html = '';
+
+                days.forEach(day => {
+                    const dayPlans = plans.filter(p => p.day_of_week === day);
+                    if (dayPlans.length > 0) {
+                        html += `
+                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 border-b border-gray-100 font-bold text-gray-700">${day}</div>
+                                <div class="p-4 space-y-3">
+                                    ${dayPlans.map(plan => `
+                                        <div class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg group">
+                                            <img src="${plan.image_url}" class="w-12 h-12 rounded object-cover">
+                                            <div class="flex-grow">
+                                                <p class="text-xs text-secondary font-bold uppercase tracking-wider">${plan.meal_type}</p>
+                                                <a href="recipe-details.html?id=${plan.recipe_id}" class="text-sm font-medium hover:text-primary transition line-clamp-1">${plan.name}</a>
+                                            </div>
+                                            <button onclick="removeMealPlan(${plan.planner_id}, ${plan.recipe_id})" class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                grid.innerHTML = html;
+
+            } catch (error) {
+                showToast('Failed to load meal plan', 'error');
+            }
+        }
+
+        async function removeMealPlan(planner_id, recipe_id) {
+            if(!confirm('Remove this meal from planner?')) return;
+            try {
+                await api.planner.delete(planner_id, { recipe_id });
+                showToast('Meal removed');
+                loadMealPlan(document.getElementById('week-selector').value);
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('prof-name').value;
+            const preference = document.getElementById('prof-pref').value;
+
+            try {
+                await api.user.updateProfile({ name, preference });
+                showToast('Profile updated successfully');
+                document.getElementById('user-name').textContent = name;
+                
+                // update local storage
+                const user = JSON.parse(localStorage.getItem('user'));
+                user.name = name;
+                user.preference = preference;
+                localStorage.setItem('user', JSON.stringify(user));
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        });
+
+        function switchTab(tab) {
+            document.getElementById('content-planner').classList.add('hidden');
+            document.getElementById('content-profile').classList.add('hidden');
+            
+            document.getElementById('tab-planner').className = 'w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition flex items-center gap-3';
+            document.getElementById('tab-profile').className = 'w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 font-medium transition flex items-center gap-3';
+
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).className = 'w-full text-left px-4 py-3 rounded-xl bg-primary/10 text-primary font-medium transition flex items-center gap-3';
+        }
+    </script>
+</body>
+</html>

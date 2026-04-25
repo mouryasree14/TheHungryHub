@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | The Hungry Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#ff6b6b', 'primary-hover': '#ff5252', secondary: '#4ecdc4', dark: '#2d3436' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="glass fixed w-full z-50 bg-white shadow-sm border-b-2 border-red-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-2">
+                    <i class="fa-solid fa-utensils text-primary text-2xl"></i>
+                    <span class="font-bold text-2xl tracking-tight">The Hungry <span class="text-primary">Hub</span> <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full uppercase ml-2">Admin</span></span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8" id="nav-links"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex-grow pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <h1 class="text-3xl font-bold mb-8">Admin Control Panel</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Add Recipe Section -->
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i class="fa-solid fa-plus text-primary"></i> Add New Recipe</h2>
+                <form id="add-recipe-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Recipe Name</label>
+                        <input type="text" id="r-name" required class="w-full p-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-primary">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Cook Time (mins)</label>
+                            <input type="number" id="r-time" required min="1" class="w-full p-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
+                            <select id="r-diff" class="w-full p-2 border border-gray-300 rounded-lg outline-none">
+                                <option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Category ID</label>
+                            <input type="number" id="r-cat" placeholder="1-5" class="w-full p-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Cuisine ID</label>
+                            <input type="number" id="r-cui" placeholder="1-5" class="w-full p-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Mood ID</label>
+                            <input type="number" id="r-mood" placeholder="1-5" class="w-full p-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-primary">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                        <input type="url" id="r-img" placeholder="https://..." class="w-full p-2 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ingredients (JSON Array)</label>
+                        <textarea id="r-ing" rows="3" class="w-full p-2 border border-gray-300 rounded-lg outline-none font-mono text-xs" placeholder='[{"name": "Tomato", "quantity": "2 pcs"}]'></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Preparation Notes</label>
+                        <textarea id="r-notes" rows="3" class="w-full p-2 border border-gray-300 rounded-lg outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-primary-hover text-white py-3 rounded-lg font-bold transition">Create Recipe</button>
+                </form>
+            </div>
+
+            <!-- Manage Users Section -->
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col h-full">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i class="fa-solid fa-users text-primary"></i> Manage Users</h2>
+                <div class="overflow-x-auto flex-grow">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
+                                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody" class="bg-white divide-y divide-gray-200 text-sm">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || user.role !== 'admin') {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            loadUsers();
+        });
+
+        async function loadUsers() {
+            try {
+                const users = await api.request('/admin/users');
+                const tbody = document.getElementById('users-tbody');
+                
+                tbody.innerHTML = users.map(u => `
+                    <tr>
+                        <td class="px-4 py-3 whitespace-nowrap text-gray-500">#${u.user_id}</td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <div class="font-medium text-gray-900">${u.name}</div>
+                            <div class="text-xs text-gray-500">${u.email}</div>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${u.role === 'admin' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}">
+                                ${u.role}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
+                            ${u.role !== 'admin' ? `<button onclick="deleteUser(${u.user_id})" class="text-red-600 hover:text-red-900"><i class="fa-solid fa-trash"></i></button>` : ''}
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                showToast('Failed to load users', 'error');
+            }
+        }
+
+        async function deleteUser(id) {
+            if(!confirm('Are you sure you want to delete this user?')) return;
+            try {
+                await api.request(`/admin/user/${id}`, { method: 'DELETE' });
+                showToast('User deleted');
+                loadUsers();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        document.getElementById('add-recipe-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            let ingredients = [];
+            try {
+                const ingVal = document.getElementById('r-ing').value;
+                if (ingVal) ingredients = JSON.parse(ingVal);
+            } catch(e) {
+                return showToast('Invalid JSON in ingredients', 'error');
+            }
+
+            const data = {
+                name: document.getElementById('r-name').value,
+                cooking_time: parseInt(document.getElementById('r-time').value),
+                difficulty: document.getElementById('r-diff').value,
+                category_id: document.getElementById('r-cat').value || null,
+                cuisine_id: document.getElementById('r-cui').value || null,
+                mood_id: document.getElementById('r-mood').value || null,
+                image_url: document.getElementById('r-img').value || null,
+                prep_notes: document.getElementById('r-notes').value,
+                ingredients
+            };
+
+            try {
+                await api.recipes.create(data);
+                showToast('Recipe created successfully!', 'success');
+                e.target.reset();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

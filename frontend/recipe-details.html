@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details | The Hungry Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#ff6b6b', 'primary-hover': '#ff5252', secondary: '#4ecdc4', dark: '#2d3436' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="glass fixed w-full z-50 bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-2">
+                    <i class="fa-solid fa-utensils text-primary text-2xl"></i>
+                    <span class="font-bold text-2xl tracking-tight">The Hungry <span class="text-primary">Hub</span></span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8" id="nav-links"></div>
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700 hover:text-primary focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center" id="mobile-nav-links"></div>
+        </div>
+    </nav>
+
+    <div id="content" class="flex-grow pt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full hidden pb-20">
+        <!-- Banner -->
+        <div class="relative w-full h-80 md:h-96 rounded-3xl overflow-hidden mt-8 mb-10 shadow-xl group">
+            <img id="recipe-img" src="" alt="Recipe" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-8 w-full">
+                <div class="flex gap-2 mb-3" id="recipe-tags"></div>
+                <h1 id="recipe-title" class="text-4xl md:text-5xl font-bold text-white mb-4"></h1>
+                <div class="flex items-center gap-6 text-gray-200">
+                    <span class="flex items-center gap-2"><i class="fa-regular fa-clock text-primary"></i> <span id="recipe-time"></span> mins</span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-chart-simple text-primary"></i> <span id="recipe-diff"></span></span>
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-user text-primary"></i> <span id="recipe-author"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <!-- Left Col -->
+            <div class="lg:col-span-2 space-y-10">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2"><i class="fa-solid fa-list-check text-primary"></i> Preparation Notes</h2>
+                    <p id="recipe-notes" class="text-gray-600 leading-relaxed text-lg whitespace-pre-line"></p>
+                </div>
+                
+                <!-- Ratings -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400"></i> Reviews</h2>
+                    
+                    <form id="rating-form" class="mb-8 hidden bg-gray-50 p-6 rounded-2xl">
+                        <h3 class="font-bold mb-3">Leave a review</h3>
+                        <div class="flex gap-2 mb-3 text-2xl text-gray-300" id="star-rating">
+                            <i class="fa-solid fa-star cursor-pointer hover:text-yellow-400 transition" data-val="1"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-yellow-400 transition" data-val="2"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-yellow-400 transition" data-val="3"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-yellow-400 transition" data-val="4"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-yellow-400 transition" data-val="5"></i>
+                        </div>
+                        <input type="hidden" id="rating-val" value="0">
+                        <textarea id="rating-comment" rows="3" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary outline-none mb-3" placeholder="What did you think about this recipe?"></textarea>
+                        <button type="submit" class="bg-primary hover:bg-primary-hover text-white px-6 py-2 rounded-lg font-medium transition shadow-sm">Submit Review</button>
+                    </form>
+
+                    <div id="reviews-list" class="space-y-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Col -->
+            <div class="space-y-8">
+                <!-- Action Card -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-xl mb-4">Meal Planner</h3>
+                    <form id="planner-form" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Week</label>
+                            <input type="week" id="planner-week" required class="w-full p-2 border border-gray-300 rounded-lg outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Day</label>
+                            <select id="planner-day" class="w-full p-2 border border-gray-300 rounded-lg outline-none">
+                                <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+                                <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Meal</label>
+                            <select id="planner-meal" class="w-full p-2 border border-gray-300 rounded-lg outline-none">
+                                <option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-secondary hover:bg-teal-500 text-white py-3 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calendar-plus"></i> Add to Planner
+                        </button>
+                    </form>
+                    <div id="planner-login-msg" class="text-center py-4 text-gray-500">
+                        <a href="login.html" class="text-primary hover:underline">Log in</a> to add to meal planner.
+                    </div>
+                </div>
+
+                <!-- Ingredients -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-xl mb-4 flex items-center gap-2"><i class="fa-solid fa-basket-shopping text-primary"></i> Ingredients</h3>
+                    <ul id="recipe-ingredients" class="space-y-3">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        let currentRecipeId = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentRecipeId = urlParams.get('id');
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            if (!currentRecipeId) {
+                window.location.href = 'recipes.html';
+                return;
+            }
+
+            if (user) {
+                document.getElementById('planner-form').classList.remove('hidden');
+                document.getElementById('planner-login-msg').classList.add('hidden');
+                document.getElementById('rating-form').classList.remove('hidden');
+            }
+
+            await loadRecipeDetails();
+            await loadRatings();
+            setupStarRating();
+        });
+
+        async function loadRecipeDetails() {
+            try {
+                const recipe = await api.recipes.getById(currentRecipeId);
+                
+                document.getElementById('recipe-img').src = recipe.image_url;
+                document.getElementById('recipe-title').textContent = recipe.name;
+                document.getElementById('recipe-time').textContent = recipe.cooking_time;
+                document.getElementById('recipe-diff').textContent = recipe.difficulty;
+                document.getElementById('recipe-author').textContent = recipe.author_name || 'Chef';
+                document.getElementById('recipe-notes').textContent = recipe.prep_notes || 'No prep notes provided.';
+                
+                const tagsHtml = [];
+                if (recipe.category_name) tagsHtml.push(`<span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium border border-white/30">${recipe.category_name}</span>`);
+                if (recipe.cuisine_name) tagsHtml.push(`<span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium border border-white/30">${recipe.cuisine_name}</span>`);
+                if (recipe.mood_type) tagsHtml.push(`<span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium border border-white/30">${recipe.mood_type}</span>`);
+                document.getElementById('recipe-tags').innerHTML = tagsHtml.join('');
+
+                const ingHtml = recipe.ingredients.map(ing => `
+                    <li class="flex justify-between items-center pb-2 border-b border-gray-100 last:border-0">
+                        <span class="font-medium text-gray-800">${ing.ingredient_name}</span>
+                        <span class="text-sm text-gray-500">${ing.quantity_desc}</span>
+                    </li>
+                `).join('');
+                document.getElementById('recipe-ingredients').innerHTML = ingHtml || '<li class="text-gray-500">No ingredients specified.</li>';
+
+                document.getElementById('content').classList.remove('hidden');
+            } catch (error) {
+                showToast('Failed to load recipe', 'error');
+            }
+        }
+
+        async function loadRatings() {
+            try {
+                const ratings = await api.request(`/ratings/${currentRecipeId}`);
+                const list = document.getElementById('reviews-list');
+                
+                if (ratings.length === 0) {
+                    list.innerHTML = '<p class="text-gray-500">No reviews yet. Be the first to review!</p>';
+                    return;
+                }
+
+                list.innerHTML = ratings.map(r => `
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-gray-800">${r.user_name}</span>
+                            <div class="text-yellow-400 text-sm">
+                                ${Array(5).fill(0).map((_, i) => i < r.rating_value ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star text-gray-300"></i>').join('')}
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm">${r.comment || ''}</p>
+                        <p class="text-xs text-gray-400 mt-2">${new Date(r.created_at).toLocaleDateString()}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function setupStarRating() {
+            const stars = document.querySelectorAll('#star-rating i');
+            const valInput = document.getElementById('rating-val');
+            
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const val = parseInt(this.getAttribute('data-val'));
+                    valInput.value = val;
+                    
+                    stars.forEach((s, idx) => {
+                        if (idx < val) {
+                            s.classList.remove('fa-regular', 'text-gray-300');
+                            s.classList.add('fa-solid', 'text-yellow-400');
+                        } else {
+                            s.classList.remove('fa-solid', 'text-yellow-400');
+                            s.classList.add('fa-regular', 'text-gray-300');
+                        }
+                    });
+                });
+            });
+        }
+
+        document.getElementById('rating-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const rating_value = document.getElementById('rating-val').value;
+            const comment = document.getElementById('rating-comment').value;
+
+            if (rating_value == 0) return showToast('Please select a star rating', 'error');
+
+            try {
+                await api.request('/ratings', {
+                    method: 'POST',
+                    body: JSON.stringify({ recipe_id: currentRecipeId, rating_value, comment })
+                });
+                showToast('Review submitted!');
+                document.getElementById('rating-form').reset();
+                setupStarRating(); // reset stars
+                loadRatings();
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        });
+
+        document.getElementById('planner-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const week = document.getElementById('planner-week').value;
+            const day_of_week = document.getElementById('planner-day').value;
+            const meal_type = document.getElementById('planner-meal').value;
+
+            try {
+                await api.planner.add({ week, recipe_id: currentRecipeId, day_of_week, meal_type });
+                showToast('Added to Meal Planner!');
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>
