@@ -18,6 +18,7 @@ function updateNavbar() {
         desktopHtml = `
             <a href="recipes.html" class="text-gray-700 hover:text-primary transition font-medium">Recipes</a>
             <a href="ingredient-search.html" class="text-gray-700 hover:text-primary transition font-medium">Pantry Search</a>
+            <a href="add-recipe.html" class="text-gray-700 hover:text-primary transition font-medium">Add Recipe</a>
             <a href="dashboard.html" class="text-gray-700 hover:text-primary transition font-medium">Dashboard</a>
             ${user.role === 'admin' ? '<a href="admin.html" class="text-red-500 hover:text-red-600 transition font-medium">Admin</a>' : ''}
             <button onclick="logout()" class="px-5 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition">Logout</button>
@@ -25,6 +26,7 @@ function updateNavbar() {
         mobileHtml = `
             <a href="recipes.html" class="block py-2 text-gray-700">Recipes</a>
             <a href="ingredient-search.html" class="block py-2 text-gray-700">Pantry Search</a>
+            <a href="add-recipe.html" class="block py-2 text-gray-700">Add Recipe</a>
             <a href="dashboard.html" class="block py-2 text-gray-700">Dashboard</a>
             ${user.role === 'admin' ? '<a href="admin.html" class="block py-2 text-red-500">Admin</a>' : ''}
             <button onclick="logout()" class="block w-full text-left py-2 text-gray-700">Logout</button>

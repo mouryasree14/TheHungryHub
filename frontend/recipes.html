@@ -114,13 +114,18 @@
                         </div>
                         <div class="p-5 flex-grow flex flex-col">
                             <h3 class="font-bold text-lg text-gray-800 line-clamp-2 mb-2">${recipe.name}</h3>
-                            <div class="flex items-center gap-2 mb-4 text-xs text-gray-500">
+                            <div class="flex items-center gap-2 mb-3 text-xs text-gray-500">
                                 ${recipe.category_name ? `<span class="bg-gray-100 px-2 py-1 rounded">${recipe.category_name}</span>` : ''}
                                 ${recipe.cuisine_name ? `<span class="bg-gray-100 px-2 py-1 rounded">${recipe.cuisine_name}</span>` : ''}
                             </div>
+                            <div class="flex items-center gap-1 mb-3 text-sm">
+                                <i class="fa-solid fa-star text-yellow-400"></i>
+                                <span class="font-bold">${Number(recipe.average_rating || 0).toFixed(1)}</span>
+                                <span class="text-gray-400 text-xs">(${recipe.review_count || 0} reviews)</span>
+                            </div>
                             <div class="mt-auto flex justify-between items-center border-t border-gray-50 pt-3">
                                 <span class="text-xs font-medium px-2 py-1 ${recipe.difficulty === 'Easy' ? 'bg-green-100 text-green-700' : recipe.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'} rounded-md">${recipe.difficulty}</span>
-                                <span class="text-xs text-gray-500">By ${recipe.author_name || 'Chef'}</span>
+                                <span class="text-xs text-gray-500 font-medium">By ${recipe.author_name || 'Chef'}</span>
                             </div>
                         </div>
                     </div>

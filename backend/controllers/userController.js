@@ -36,3 +36,23 @@ exports.updateProfile = async (req, res) => {
         res.status(500).json({ message: 'Error updating profile', error: error.message });
     }
 };
+
+exports.getMyRecipes = async (req, res) => {
+    try {
+        const [recipes] = await pool.query(
+            `SELECT r.*, c.name as category_name, cu.cuisine_name, 
+             IFNULL(AVG(ra.rating_value), 0) as average_rating, COUNT(ra.rating_id) as review_count
+             FROM RECIPE r
+             LEFT JOIN CATEGORY c ON r.category_id = c.category_id
+             LEFT JOIN CUISINE cu ON r.cuisine_id = cu.cuisine_id
+             LEFT JOIN RATING ra ON r.recipe_id = ra.recipe_id
+             WHERE r.created_by_user_id = ?
+             GROUP BY r.recipe_id
+             ORDER BY r.created_at DESC`,
+            [req.userId]
+        );
+        res.json(recipes);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching my recipes', error: error.message });
+    }
+};

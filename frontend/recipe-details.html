@@ -49,6 +49,7 @@
                     <span class="flex items-center gap-2"><i class="fa-regular fa-clock text-primary"></i> <span id="recipe-time"></span> mins</span>
                     <span class="flex items-center gap-2"><i class="fa-solid fa-chart-simple text-primary"></i> <span id="recipe-diff"></span></span>
                     <span class="flex items-center gap-2"><i class="fa-solid fa-user text-primary"></i> <span id="recipe-author"></span></span>
+                    <span class="flex items-center gap-2" id="recipe-rating-container"><i class="fa-solid fa-star text-yellow-400"></i> <span id="recipe-rating" class="font-bold"></span></span>
                 </div>
             </div>
         </div>
@@ -59,6 +60,11 @@
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
                     <h2 class="text-2xl font-bold mb-6 flex items-center gap-2"><i class="fa-solid fa-list-check text-primary"></i> Preparation Notes</h2>
                     <p id="recipe-notes" class="text-gray-600 leading-relaxed text-lg whitespace-pre-line"></p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2"><i class="fa-solid fa-fire-burner text-primary"></i> Steps</h2>
+                    <p id="recipe-steps" class="text-gray-600 leading-relaxed text-lg whitespace-pre-line"></p>
                 </div>
                 
                 <!-- Ratings -->
@@ -164,6 +170,13 @@
                 document.getElementById('recipe-diff').textContent = recipe.difficulty;
                 document.getElementById('recipe-author').textContent = recipe.author_name || 'Chef';
                 document.getElementById('recipe-notes').textContent = recipe.prep_notes || 'No prep notes provided.';
+                document.getElementById('recipe-steps').textContent = recipe.steps || 'No steps provided.';
+                
+                if (recipe.average_rating > 0) {
+                    document.getElementById('recipe-rating').textContent = Number(recipe.average_rating).toFixed(1) + ' (' + recipe.review_count + ' reviews)';
+                } else {
+                    document.getElementById('recipe-rating-container').style.display = 'none';
+                }
                 
                 const tagsHtml = [];
                 if (recipe.category_name) tagsHtml.push(`<span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium border border-white/30">${recipe.category_name}</span>`);
@@ -203,7 +216,7 @@
                                 ${Array(5).fill(0).map((_, i) => i < r.rating_value ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star text-gray-300"></i>').join('')}
                             </div>
                         </div>
-                        <p class="text-gray-600 text-sm">${r.comment || ''}</p>
+                        <p class="text-gray-600 text-sm">${r.review_text || ''}</p>
                         <p class="text-xs text-gray-400 mt-2">${new Date(r.created_at).toLocaleDateString()}</p>
                     </div>
                 `).join('');
@@ -237,14 +250,14 @@
         document.getElementById('rating-form')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const rating_value = document.getElementById('rating-val').value;
-            const comment = document.getElementById('rating-comment').value;
+            const review_text = document.getElementById('rating-comment').value;
 
             if (rating_value == 0) return showToast('Please select a star rating', 'error');
 
             try {
                 await api.request('/ratings', {
                     method: 'POST',
-                    body: JSON.stringify({ recipe_id: currentRecipeId, rating_value, comment })
+                    body: JSON.stringify({ recipe_id: currentRecipeId, rating_value, review_text })
                 });
                 showToast('Review submitted!');
                 document.getElementById('rating-form').reset();

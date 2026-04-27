@@ -4,12 +4,14 @@ exports.getAllRecipes = async (req, res) => {
     try {
         const { search, category, cuisine, mood, difficulty } = req.query;
         let query = `
-            SELECT r.*, c.name as category_name, cu.cuisine_name, m.mood_type, u.name as author_name 
+            SELECT r.*, c.name as category_name, cu.cuisine_name, m.mood_type, u.name as author_name,
+            IFNULL(AVG(ra.rating_value), 0) as average_rating, COUNT(ra.rating_id) as review_count
             FROM RECIPE r
             LEFT JOIN CATEGORY c ON r.category_id = c.category_id
             LEFT JOIN CUISINE cu ON r.cuisine_id = cu.cuisine_id
             LEFT JOIN MOOD m ON r.mood_id = m.mood_id
-            LEFT JOIN USER u ON r.created_by = u.user_id
+            LEFT JOIN USER u ON r.created_by_user_id = u.user_id
+            LEFT JOIN RATING ra ON r.recipe_id = ra.recipe_id
             WHERE 1=1
         `;
         const queryParams = [];
@@ -35,7 +37,7 @@ exports.getAllRecipes = async (req, res) => {
             queryParams.push(difficulty);
         }
 
-        query += ` ORDER BY r.created_at DESC`;
+        query += ` GROUP BY r.recipe_id ORDER BY r.created_at DESC`;
 
         const [recipes] = await pool.query(query, queryParams);
         res.json(recipes);
@@ -47,13 +49,16 @@ exports.getAllRecipes = async (req, res) => {
 exports.getRecipeById = async (req, res) => {
     try {
         const [recipes] = await pool.query(`
-            SELECT r.*, c.name as category_name, cu.cuisine_name, m.mood_type, u.name as author_name 
+            SELECT r.*, c.name as category_name, cu.cuisine_name, m.mood_type, u.name as author_name,
+            IFNULL(AVG(ra.rating_value), 0) as average_rating, COUNT(ra.rating_id) as review_count
             FROM RECIPE r
             LEFT JOIN CATEGORY c ON r.category_id = c.category_id
             LEFT JOIN CUISINE cu ON r.cuisine_id = cu.cuisine_id
             LEFT JOIN MOOD m ON r.mood_id = m.mood_id
-            LEFT JOIN USER u ON r.created_by = u.user_id
+            LEFT JOIN USER u ON r.created_by_user_id = u.user_id
+            LEFT JOIN RATING ra ON r.recipe_id = ra.recipe_id
             WHERE r.recipe_id = ?
+            GROUP BY r.recipe_id
         `, [req.params.id]);
 
         if (recipes.length === 0) {
@@ -81,7 +86,7 @@ exports.getRecipeById = async (req, res) => {
 exports.createRecipe = async (req, res) => {
     const connection = await pool.getConnection();
     try {
-        const { name, cooking_time, difficulty, prep_notes, category_id, cuisine_id, mood_id, image_url, ingredients } = req.body;
+        const { name, cooking_time, difficulty, prep_notes, steps, category_id, cuisine_id, mood_id, image_url, ingredients } = req.body;
 
         // Validations
         if (!name) return res.status(400).json({ message: 'Name is required' });
@@ -91,9 +96,9 @@ exports.createRecipe = async (req, res) => {
         await connection.beginTransaction();
 
         const [result] = await connection.query(`
-            INSERT INTO RECIPE (name, cooking_time, difficulty, prep_notes, category_id, cuisine_id, mood_id, image_url, created_by)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, [name, cooking_time, difficulty, prep_notes, category_id || null, cuisine_id || null, mood_id || null, image_url || null, req.userId]);
+            INSERT INTO RECIPE (name, cooking_time, difficulty, prep_notes, steps, category_id, cuisine_id, mood_id, image_url, created_by_user_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, [name, cooking_time, difficulty, prep_notes, steps || null, category_id || null, cuisine_id || null, mood_id || null, image_url || null, req.userId]);
 
         const recipeId = result.insertId;
 
@@ -127,21 +132,21 @@ exports.createRecipe = async (req, res) => {
 
 exports.updateRecipe = async (req, res) => {
     try {
-        const { name, cooking_time, difficulty, prep_notes, image_url } = req.body;
+        const { name, cooking_time, difficulty, prep_notes, steps, image_url } = req.body;
         const recipeId = req.params.id;
 
         // Check ownership or admin
-        const [recipes] = await pool.query('SELECT created_by FROM RECIPE WHERE recipe_id = ?', [recipeId]);
+        const [recipes] = await pool.query('SELECT created_by_user_id FROM RECIPE WHERE recipe_id = ?', [recipeId]);
         if (recipes.length === 0) return res.status(404).json({ message: 'Recipe not found' });
         
-        if (recipes[0].created_by !== req.userId && req.userRole !== 'admin') {
+        if (recipes[0].created_by_user_id !== req.userId && req.userRole !== 'admin') {
             return res.status(403).json({ message: 'Not authorized to update this recipe' });
         }
 
         await pool.query(`
-            UPDATE RECIPE SET name = ?, cooking_time = ?, difficulty = ?, prep_notes = ?, image_url = ?
+            UPDATE RECIPE SET name = ?, cooking_time = ?, difficulty = ?, prep_notes = ?, steps = ?, image_url = ?
             WHERE recipe_id = ?
-        `, [name, cooking_time, difficulty, prep_notes, image_url, recipeId]);
+        `, [name, cooking_time, difficulty, prep_notes, steps || null, image_url, recipeId]);
 
         res.json({ message: 'Recipe updated successfully' });
     } catch (error) {
@@ -154,10 +159,10 @@ exports.deleteRecipe = async (req, res) => {
         const recipeId = req.params.id;
 
         // Check ownership or admin
-        const [recipes] = await pool.query('SELECT created_by FROM RECIPE WHERE recipe_id = ?', [recipeId]);
+        const [recipes] = await pool.query('SELECT created_by_user_id FROM RECIPE WHERE recipe_id = ?', [recipeId]);
         if (recipes.length === 0) return res.status(404).json({ message: 'Recipe not found' });
         
-        if (recipes[0].created_by !== req.userId && req.userRole !== 'admin') {
+        if (recipes[0].created_by_user_id !== req.userId && req.userRole !== 'admin') {
             return res.status(403).json({ message: 'Not authorized to delete this recipe' });
         }
 

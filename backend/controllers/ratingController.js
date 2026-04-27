@@ -2,7 +2,7 @@ const pool = require('../config/db');
 
 exports.addRating = async (req, res) => {
     try {
-        const { recipe_id, rating_value, comment } = req.body;
+        const { recipe_id, rating_value, review_text } = req.body;
 
         if (!recipe_id || !rating_value) {
             return res.status(400).json({ message: 'Recipe ID and rating value are required' });
@@ -14,10 +14,10 @@ exports.addRating = async (req, res) => {
 
         // Insert or update rating (Upsert approach)
         await pool.query(`
-            INSERT INTO RATING (user_id, recipe_id, rating_value, comment) 
+            INSERT INTO RATING (user_id, recipe_id, rating_value, review_text) 
             VALUES (?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE rating_value = VALUES(rating_value), comment = VALUES(comment)
-        `, [req.userId, recipe_id, rating_value, comment]);
+            ON DUPLICATE KEY UPDATE rating_value = VALUES(rating_value), review_text = VALUES(review_text)
+        `, [req.userId, recipe_id, rating_value, review_text]);
 
         res.status(201).json({ message: 'Rating added successfully' });
     } catch (error) {
@@ -28,7 +28,7 @@ exports.addRating = async (req, res) => {
 exports.getRecipeRatings = async (req, res) => {
     try {
         const [ratings] = await pool.query(`
-            SELECT r.rating_id, r.rating_value, r.comment, r.created_at, u.name as user_name 
+            SELECT r.rating_id, r.rating_value, r.review_text, r.created_at, u.name as user_name 
             FROM RATING r
             JOIN USER u ON r.user_id = u.user_id
             WHERE r.recipe_id = ?
