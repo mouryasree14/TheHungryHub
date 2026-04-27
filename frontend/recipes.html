@@ -49,6 +49,31 @@
                     <input type="text" id="search-input" placeholder="Search recipes..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
                     <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
                 </div>
+                <select id="filter-category" class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white">
+                    <option value="">Any Category</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Snack">Snack</option>
+                </select>
+                <select id="filter-cuisine" class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white">
+                    <option value="">Any Cuisine</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="American">American</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Continental">Continental</option>
+                </select>
+                <select id="filter-mood" class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white">
+                    <option value="">Any Mood</option>
+                    <option value="Comforting">Comforting</option>
+                    <option value="Healthy">Healthy</option>
+                    <option value="Quick & Easy">Quick & Easy</option>
+                    <option value="Festive">Festive</option>
+                    <option value="Romantic">Romantic</option>
+                </select>
                 <select id="filter-difficulty" class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white">
                     <option value="">Any Difficulty</option>
                     <option value="Easy">Easy</option>
@@ -78,10 +103,32 @@
             const catParam = urlParams.get('category');
             
             if (searchParam) document.getElementById('search-input').value = searchParam;
-            loadRecipes(catParam);
+            if (catParam) {
+                const categorySelect = document.getElementById('filter-category');
+                // Check if the parameter exists as an option before setting
+                for (let i = 0; i < categorySelect.options.length; i++) {
+                    if (categorySelect.options[i].value.toLowerCase() === catParam.toLowerCase()) {
+                        categorySelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            const moodParam = urlParams.get('mood');
+            if (moodParam) {
+                const moodSelect = document.getElementById('filter-mood');
+                for (let i = 0; i < moodSelect.options.length; i++) {
+                    if (moodSelect.options[i].value.toLowerCase() === moodParam.toLowerCase()) {
+                        moodSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            loadRecipes();
         });
 
-        async function loadRecipes(category = null) {
+        async function loadRecipes() {
             const grid = document.getElementById('recipes-grid');
             const loading = document.getElementById('loading');
             grid.innerHTML = '';
@@ -90,11 +137,16 @@
             try {
                 const search = document.getElementById('search-input').value;
                 const difficulty = document.getElementById('filter-difficulty').value;
+                const category = document.getElementById('filter-category').value;
+                const cuisine = document.getElementById('filter-cuisine').value;
+                const mood = document.getElementById('filter-mood').value;
                 
                 let query = [];
                 if (search) query.push(`search=${encodeURIComponent(search)}`);
                 if (difficulty) query.push(`difficulty=${encodeURIComponent(difficulty)}`);
                 if (category) query.push(`category=${encodeURIComponent(category)}`);
+                if (cuisine) query.push(`cuisine=${encodeURIComponent(cuisine)}`);
+                if (mood) query.push(`mood=${encodeURIComponent(mood)}`);
 
                 const recipes = await api.recipes.getAll(query.join('&'));
                 loading.classList.add('hidden');

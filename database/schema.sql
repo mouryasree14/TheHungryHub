@@ -118,6 +118,80 @@ CREATE TABLE IF NOT EXISTS MEAL_PLAN_RECIPE (
     FOREIGN KEY (recipe_id) REFERENCES RECIPE(recipe_id) ON DELETE CASCADE
 );
 
+-- =====================================================
+-- VALIDATION TRIGGERS FOR INVALID RECIPE / INGREDIENTS
+-- Add this section BEFORE Insert Sample Data
+-- =====================================================
+
+DROP TRIGGER IF EXISTS trg_recipe_insert;
+DROP TRIGGER IF EXISTS trg_recipe_update;
+DROP TRIGGER IF EXISTS trg_ingredient_insert;
+DROP TRIGGER IF EXISTS trg_ingredient_update;
+
+DELIMITER $$
+
+-- -------------------------------------------------
+-- RECIPE NAME VALIDATION BEFORE INSERT
+-- -------------------------------------------------
+CREATE TRIGGER trg_recipe_insert
+BEFORE INSERT ON RECIPE
+FOR EACH ROW
+BEGIN
+    IF LOWER(NEW.name) REGEXP
+    'trash|garbage|waste|sewage|mud|dirt|poison|toxic|plastic|rubber|glass|stone|dust|soap|detergent|acid|battery|cement|urine|feces|stool|vomit|blood|dead|rotten|spoiled|infected'
+    THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid Recipe Name! Please enter valid food recipe.';
+    END IF;
+END$$
+
+-- -------------------------------------------------
+-- RECIPE NAME VALIDATION BEFORE UPDATE
+-- -------------------------------------------------
+CREATE TRIGGER trg_recipe_update
+BEFORE UPDATE ON RECIPE
+FOR EACH ROW
+BEGIN
+    IF LOWER(NEW.name) REGEXP
+    'trash|garbage|waste|sewage|mud|dirt|poison|toxic|plastic|rubber|glass|stone|dust|soap|detergent|acid|battery|cement|urine|feces|stool|vomit|blood|dead|rotten|spoiled|infected'
+    THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid Recipe Name! Update rejected.';
+    END IF;
+END$$
+
+-- -------------------------------------------------
+-- INGREDIENT VALIDATION BEFORE INSERT
+-- -------------------------------------------------
+CREATE TRIGGER trg_ingredient_insert
+BEFORE INSERT ON INGREDIENT
+FOR EACH ROW
+BEGIN
+    IF LOWER(NEW.ingredient_name) REGEXP
+    'trash|garbage|waste|sewage|mud|dirt|poison|toxic|plastic|rubber|glass|stone|dust|soap|detergent|acid|battery|cement|urine|feces|stool|vomit|blood|dead|rotten|spoiled|infected'
+    THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid Ingredient Name!';
+    END IF;
+END$$
+
+-- -------------------------------------------------
+-- INGREDIENT VALIDATION BEFORE UPDATE
+-- -------------------------------------------------
+CREATE TRIGGER trg_ingredient_update
+BEFORE UPDATE ON INGREDIENT
+FOR EACH ROW
+BEGIN
+    IF LOWER(NEW.ingredient_name) REGEXP
+    'trash|garbage|waste|sewage|mud|dirt|poison|toxic|plastic|rubber|glass|stone|dust|soap|detergent|acid|battery|cement|urine|feces|stool|vomit|blood|dead|rotten|spoiled|infected'
+    THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid Ingredient Name! Update rejected.';
+    END IF;
+END$$
+
+DELIMITER ;
+
 -- Indexes for performance (Commented out to prevent duplicate key errors on existing DB)
 -- CREATE INDEX idx_recipe_name ON RECIPE(name);
 -- CREATE INDEX idx_ingredient_name ON INGREDIENT(ingredient_name);
