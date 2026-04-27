@@ -211,7 +211,6 @@ INSERT IGNORE INTO USER (user_id, name, email, password, preference, role) VALUE
 (4, 'Anushka', 'anushka@example.com', '$2b$10$EPJq20e2x0b04r16LftXw.gQ42168vTf4uA3y1Dq/3A3J5bQ6yKUK', 'Vegan', 'user');
 
 -- Insert comprehensive ingredients
--- Insert comprehensive ingredients (Updated with New Hard Recipe Ingredients)
 
 INSERT IGNORE INTO INGREDIENT (ingredient_name) VALUES
 ('Tomato'),
@@ -293,440 +292,657 @@ INSERT IGNORE INTO INGREDIENT (ingredient_name) VALUES
 ('Egg Yolk'),
 ('Beef');
 
-
 -- Insert Huge Recipe Dataset with matching images
 
 INSERT IGNORE INTO RECIPE
 (recipe_id, name, cooking_time, difficulty, prep_notes, steps, category_id, cuisine_id, mood_id, image_url, created_by_user_id)
 VALUES
 
--- =========================
 -- BREAKFAST
--- =========================
 
-(11,'Masala Dosa',25,'Hard','South Indian crispy breakfast',
-'1. Spread batter on hot tawa. 2. Add potato masala. 3. Fold and serve.',
-1,3,1,'https://images.unsplash.com/photo-1589301760014-d929f39ce9b1?auto=format&fit=crop&q=80&w=800',1),
+(1,'Masala Dosa',25,'Hard','South Indian crispy breakfast',
+'1. Heat a flat pan (tawa) and lightly grease it with oil.
+2. Pour a ladle of dosa batter and spread it thin in a circular motion.
+3. Cook until the base turns golden and crisp.
+4. Place prepared potato masala in the center.
+5. Fold the dosa carefully into a roll or triangle.
+6. Remove from pan and serve hot.
+7. Serve with coconut chutney and sambar.',
+1,3,1,'https://vismaifood.com/storage/app/uploads/public/45a/29b/a17/thumb__700_0_0_0_auto.jpg',1),
 
-(12,'Cheese Omelette Bruschetta',15,'Easy','Italian style breakfast toast',
-'1. Toast bread. 2. Make omelette. 3. Add tomato topping.',
-1,1,3,'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=800',1),
+(2,'Cheese Omelette Bruschetta',15,'Easy','Italian style breakfast toast',
+'1. Toast bread slices until crisp and golden.
+2. Beat eggs with salt and pepper in a bowl.
+3. Heat a pan and cook the egg mixture into a soft omelette.
+4. Place the omelette over toasted bread.
+5. Add chopped tomatoes and sprinkle cheese on top.
+6. Let cheese melt slightly.
+7. Serve immediately while warm.',
+1,1,3,'https://www.theomeletteguys.com/wp-content/uploads/2025/04/omelette.webp',1),
 
-(13,'Breakfast Burrito',20,'Easy','Quick Mexican breakfast',
-'1. Scramble eggs. 2. Fill tortilla. 3. Roll and serve.',
-1,2,3,'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&q=80&w=800',1),
+(3,'Breakfast Burrito',20,'Easy','Quick Mexican breakfast',
+'1. Heat a pan and scramble eggs until fully cooked.
+2. Warm the tortilla lightly on another pan.
+3. Place scrambled eggs, beans, and cheese in the center.
+4. Add optional sauces or vegetables if desired.
+5. Fold the sides and roll the tortilla tightly.
+6. Cut into halves for easy serving.
+7. Serve hot.',
+1,2,3,'https://tse2.mm.bing.net/th/id/OIP.spszPLufYFCLBKgVT12e5AHaHa?w=750&h=750&rs=1&pid=ImgDetMain&o=7&rm=3',1),
 
-(14,'Pancakes',20,'Easy','Soft continental pancakes',
-'1. Mix batter. 2. Cook on pan. 3. Serve with syrup.',
-1,6,1,'https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&q=80&w=800',1),
+(4,'Pancakes',20,'Easy','Soft continental pancakes',
+'1. Mix flour, milk, eggs, and sugar into a smooth batter.
+2. Heat a non-stick pan and lightly grease it.
+3. Pour a ladle of batter onto the pan.
+4. Cook until bubbles appear on the surface.
+5. Flip and cook the other side until golden.
+6. Stack pancakes on a plate.
+7. Serve with syrup or fruits.',
+1,6,1,'https://recipe.sfo3.digitaloceanspaces.com/images/delicious-oat-flour-pancakes-easy-recipe-for-heal-99286-featured_1_0.jpg',1),
 
-(15,'Vegetable Noodles',20,'Easy','Chinese breakfast noodles',
-'1. Boil noodles. 2. Stir fry vegetables. 3. Toss with sauce.',
-1,4,3,'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&q=80&w=800',1),
+(5,'Vegetable Noodles',20,'Easy','Chinese breakfast noodles',
+'1. Boil noodles in water until soft and drain.
+2. Heat oil in a pan and add chopped vegetables.
+3. Stir-fry vegetables on high heat.
+4. Add boiled noodles to the pan.
+5. Pour soy sauce and mix well.
+6. Toss everything evenly.
+7. Serve hot.',
+1,4,3,'https://th.bing.com/th/id/R.42e85ae999118d0fe3f98977fb5bb36b?rik=jMszyoimwAUo4w&riu=http%3a%2f%2fwww.blog.sagmart.com%2fwp-content%2fuploads%2f2015%2f07%2fHakka-Noodles.jpg&ehk=L1Ig4QMkVnMXKfzXYc4dtkYUVpxg8T8kuDBKxbTkQCw%3d&risl=&pid=ImgRaw&r=0',1),
 
-(16,'Waffles',25,'Medium','American classic waffles',
-'1. Make batter. 2. Cook in waffle maker. 3. Serve hot.',
-1,5,1,'https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&q=80&w=800',1),
+(6,'Waffles',25,'Medium','American classic waffles',
+'1. Prepare waffle batter using flour, milk, eggs, and butter.
+2. Preheat the waffle maker.
+3. Pour batter into the waffle mold.
+4. Close the lid and cook until golden brown.
+5. Carefully remove the waffle.
+6. Place on serving plate.
+7. Serve hot with syrup or honey.',
+1,5,1,'https://img.freepik.com/premium-photo/delicious-waffle-breakfast_974732-34316.jpg',1),
 
-(41,'Medu Vada',50,'Hard','Crispy South Indian breakfast',
-'1. Soak urad dal. 2. Grind batter. 3. Shape vada. 4. Deep fry.',
-1,3,1,'https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&q=80&w=800',1),
+(7,'Medu Vada',50,'Hard','Crispy South Indian breakfast',
+'1. Soak urad dal in water for several hours.
+2. Grind into a smooth thick batter.
+3. Add salt and mix well.
+4. Heat oil in a deep pan.
+5. Shape batter into vadas with a hole in center.
+6. Deep fry until golden and crispy.
+7. Drain excess oil and serve hot with chutney.',
+1,3,1,'https://i0.wp.com/passion2cook.com/wp-content/uploads/2022/10/medu-vada-1.jpg?w=1628&ssl=1',1),
 
--- =========================
--- LUNCH
--- =========================
+(8,'Veg Biryani',40,'Hard','Indian rice lunch',
+'1. Heat oil in a pot and sauté spices and vegetables.
+2. Add soaked rice and mix gently.
+3. Pour water and add salt.
+4. Cover and cook on low flame (dum method).
+5. Allow rice to absorb flavors completely.
+6. Turn off heat and let it rest.
+7. Serve hot with raita.',
+2,3,4,'https://tse4.mm.bing.net/th/id/OIP.KSx3IaljuNAW9k62MUip5wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3',1),
 
-(17,'Veg Biryani',40,'Hard','Indian rice lunch',
-'1. Cook vegetables. 2. Add rice. 3. Dum cook.',
-2,3,4,'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=800',1),
+(9,'Pasta Arrabiata',25,'Easy','Spicy Italian pasta',
+'1. Boil pasta in salted water until al dente.
+2. Heat olive oil in a pan and sauté garlic.
+3. Add tomato sauce and chili flakes.
+4. Cook sauce until slightly thick.
+5. Add boiled pasta and mix well.
+6. Toss until pasta is evenly coated.
+7. Serve hot with herbs.',
+2,1,3,'https://cdn.mygingergarlickitchen.com/images/800px/800px-pasta-arrabiata-recipe-my-ginger-garlic-kitchen-7.jpg',1),
 
-(18,'Pasta Arrabiata',25,'Easy','Spicy Italian pasta',
-'1. Boil pasta. 2. Prepare sauce. 3. Mix together.',
-2,1,3,'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&q=80&w=800',1),
+(10,'Veg Quesadilla',20,'Easy','Cheesy Mexican lunch',
+'1. Place tortilla on a pan.
+2. Add vegetables and cheese on one half.
+3. Fold tortilla over the filling.
+4. Cook on both sides until crisp.
+5. Remove from pan.
+6. Cut into wedges.
+7. Serve hot with dip.',
+2,2,3,'https://img.pikbest.com/photo/20240718/realistic-image-of-golden-brown-cheesy-chicken-quesadillas-cut-into-triangles_10673645.jpg!bw700',1),
 
-(19,'Veg Quesadilla',20,'Easy','Cheesy Mexican lunch',
-'1. Fill tortilla. 2. Toast both sides. 3. Cut and serve.',
-2,2,3,'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&q=80&w=800',1),
+(11,'Grilled Chicken Salad',30,'Medium','Healthy continental lunch',
+'1. Season chicken with salt, pepper, and oil.
+2. Grill the chicken until fully cooked and slightly charred.
+3. Chop fresh vegetables like lettuce, tomato, and cucumber.
+4. Slice grilled chicken into strips.
+5. Combine vegetables and chicken in a bowl.
+6. Add dressing and toss gently.
+7. Serve fresh.',
+2,6,2,'https://cookingsteps.com/wp-content/uploads/2025/04/Image_3-65.png',1),
 
-(20,'Grilled Chicken Salad',30,'Medium','Healthy continental lunch',
-'1. Grill chicken. 2. Chop veggies. 3. Mix and serve.',
-2,6,2,'https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&q=80&w=800',1),
+(12,'Fried Rice',20,'Easy','Chinese classic lunch',
+'1. Heat oil in a wok on high flame.
+2. Add chopped vegetables and stir-fry.
+3. Add cooked rice to the wok.
+4. Pour soy sauce and seasonings.
+5. Mix everything thoroughly.
+6. Stir-fry for 3–4 minutes.
+7. Serve hot.',
+2,4,3,'https://cookcue.com/wp-content/uploads/2025/08/0_2-1754845048884.webp',1),
 
-(21,'Fried Rice',20,'Easy','Chinese classic lunch',
-'1. Fry vegetables. 2. Add rice. 3. Toss with soy sauce.',
-2,4,3,'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&q=80&w=800',1),
+(13,'Burger Meal',30,'Medium','American burger lunch',
+'1. Cook the patty on a pan until done.
+2. Toast burger buns lightly.
+3. Place patty on bottom bun.
+4. Add lettuce, tomato, and cheese.
+5. Spread sauces as desired.
+6. Cover with top bun.
+7. Serve with fries or sides.',
+2,5,1,'https://png.pngtree.com/thumb_back/fh260/background/20240609/pngtree-complete-hamburger-with-two-meats-sauces-french-fries-and-cola-soda-image_15745383.jpg',1),
 
-(22,'Burger Meal',30,'Medium','American burger lunch',
-'1. Cook patty. 2. Toast bun. 3. Assemble burger.',
-2,5,1,'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=800',1),
+(14,'Lasagna',60,'Hard','Classic layered Italian pasta',
+'1. Prepare tomato sauce and white sauce separately.
+2. Boil lasagna sheets until soft.
+3. Layer sheets, sauce, and cheese in a baking dish.
+4. Repeat layers evenly.
+5. Top with extra cheese.
+6. Bake in preheated oven until golden.
+7. Serve hot.',
+2,1,4,'https://i.pinimg.com/originals/f4/d1/af/f4d1afa4ff731fdddff4fee320e2bdc5.jpg',1),
 
-(42,'Lasagna',60,'Hard','Classic layered Italian pasta',
-'1. Prepare sauces. 2. Layer sheets. 3. Add cheese. 4. Bake.',
-2,1,4,'https://images.unsplash.com/photo-1619895092538-128341789043?auto=format&fit=crop&q=80&w=800',1),
+(15,'Peking Duck',120,'Hard','Traditional Chinese specialty',
+'1. Clean and marinate the duck thoroughly.
+2. Allow skin to dry for crisp texture.
+3. Roast in oven at controlled temperature.
+4. Baste occasionally for flavor.
+5. Cook until skin becomes crispy.
+6. Rest before slicing.
+7. Serve with accompaniments.',
+2,4,4,'https://www.imperialtreasure.com/uk/resources/album/Imperial%20Treasure%20Fine%20Chinese%20Cuisine/Peking%20Duck.jpg',1),
 
-(43,'Peking Duck',120,'Hard','Traditional Chinese specialty',
-'1. Marinate duck. 2. Dry skin. 3. Roast slowly. 4. Slice and serve.',
-2,4,4,'https://images.unsplash.com/photo-1604908177522-4021c0bff3f0?auto=format&fit=crop&q=80&w=800',1),
-
--- =========================
 -- DINNER
--- =========================
 
-(23,'Paneer Butter Masala',35,'Hard','Rich Indian dinner',
-'1. Prepare gravy. 2. Add paneer. 3. Simmer and serve.',
-3,3,1,'https://images.unsplash.com/photo-1631452180519-c014fe946bc0?auto=format&fit=crop&q=80&w=800',1),
+(16,'Paneer Butter Masala',35,'Hard','Rich Indian dinner',
+'1. Heat butter in a pan and sauté spices.
+2. Add tomato puree and cook until thick.
+3. Add cream and mix well.
+4. Add paneer cubes gently.
+5. Simmer for a few minutes.
+6. Adjust seasoning.
+7. Serve hot.',
+3,3,1,'https://industhanfood.ie/wp-content/uploads/2024/08/Paneer-Butter-Masala.png',1),
 
-(24,'Margherita Pizza',30,'Hard','Italian pizza dinner',
-'1. Add sauce. 2. Add cheese. 3. Bake.',
-3,1,4,'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=800',1),
+(17,'Margherita Pizza',30,'Hard','Italian pizza dinner',
+'1. Spread tomato sauce evenly on pizza base.
+2. Add mozzarella cheese generously.
+3. Sprinkle fresh basil leaves.
+4. Place in preheated oven.
+5. Bake until cheese melts and base is crisp.
+6. Remove and slice.
+7. Serve hot.',
+3,1,4,'https://elianarecipes.com/wp-content/uploads/2024/08/Margherita-Pizza-Recipe.png',1),
 
-(25,'Tacos',20,'Easy','Mexican tacos dinner',
-'1. Fill shells. 2. Add toppings. 3. Serve.',
-3,2,3,'https://images.unsplash.com/photo-1551504734-5ee1c4a14791?auto=format&fit=crop&q=80&w=800',1),
+(18,'Tacos',20,'Easy','Mexican tacos dinner',
+'1. Warm taco shells lightly.
+2. Prepare filling using meat or vegetables.
+3. Add filling into shells.
+4. Top with lettuce, cheese, and sauces.
+5. Arrange on plate.
+6. Garnish if needed.
+7. Serve immediately.',
+3,2,3,'https://tse2.mm.bing.net/th/id/OIP.nV8lfmJPcISxitmssn_iwwHaEs?rs=1&pid=ImgDetMain&o=7&rm=3',1),
 
-(26,'Baked Fish',35,'Medium','Continental seafood dinner',
-'1. Season fish. 2. Bake well. 3. Serve.',
-3,6,2,'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&q=80&w=800',1),
+(19,'Baked Fish',35,'Medium','Continental seafood dinner',
+'1. Clean fish and pat dry.
+2. Season with salt, pepper, and lemon juice.
+3. Place fish on baking tray.
+4. Add butter or oil on top.
+5. Bake until cooked through.
+6. Garnish with herbs.
+7. Serve hot.',
+3,6,2,'https://insanelygoodrecipes.com/wp-content/uploads/2024/11/Garlic-Butter-Oven-Baked-Tilapia-4-500x500.jpg',1),
 
-(27,'Manchurian Rice',30,'Hard','Chinese gravy dinner',
-'1. Fry balls. 2. Prepare sauce. 3. Serve with rice.',
-3,4,3,'https://images.unsplash.com/photo-1604908176997-431a4f96b6f2?auto=format&fit=crop&q=80&w=800',1),
+(20,'Manchurian Rice',30,'Hard','Chinese gravy dinner',
+'1. Prepare vegetable balls and deep fry them.
+2. Make Manchurian gravy in a pan.
+3. Cook rice separately.
+4. Add fried balls into gravy.
+5. Mix well and simmer briefly.
+6. Serve with hot rice.
+7. Enjoy immediately.',
+3,4,3,'https://img-cdn.thepublive.com/fit-in/1280x960/filters:format(webp)/sanjeev-kapoor/media/media_files/x10HBwyIRGJLbyExjRtR.JPG',1),
 
-(28,'Mac and Cheese',25,'Easy','American pasta dinner',
-'1. Boil pasta. 2. Add cheese sauce. 3. Mix.',
-3,5,1,'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&q=80&w=800',1),
+(21,'Mac and Cheese',25,'Easy','American pasta dinner',
+'1. Boil macaroni in salted water.
+2. Prepare cheese sauce using milk and cheese.
+3. Add boiled pasta to the sauce.
+4. Mix thoroughly.
+5. Cook for 2–3 minutes.
+6. Adjust seasoning.
+7. Serve warm.',
+3,5,1,'https://www.allrecipes.com/thmb/a2ffdg8KWS41BjvLePGemKb_yZw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/238691-Simple-Macaroni-And-Cheese-mfs_008-b32db5aa505041acbe958aedb81d29e9.jpg',1),
 
-(44,'Enchiladas',55,'Hard','Mexican baked dinner',
-'1. Prepare filling. 2. Roll tortillas. 3. Add sauce. 4. Bake.',
-3,2,4,'https://images.unsplash.com/photo-1534352956036-cd81e27dd615?auto=format&fit=crop&q=80&w=800',1),
+(22,'Enchiladas',55,'Hard','Mexican baked dinner',
+'1. Prepare filling using vegetables or meat.
+2. Fill tortillas and roll tightly.
+3. Place in baking dish.
+4. Pour sauce over rolls.
+5. Add cheese on top.
+6. Bake until golden.
+7. Serve hot.',
+3,2,4,'https://succulentrecipes.com/wp-content/uploads/2024/09/pinteresto_43490_High_Protein_Chicken_Enchiladas_Amateur_photo__66e9b0e6-1ad6-4d32-aefa-c349e6cd8a63.png',1),
 
-(45,'Beef Wellington',90,'Hard','Premium continental dinner',
-'1. Sear beef. 2. Wrap in pastry. 3. Bake till golden.',
-3,6,5,'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&q=80&w=800',1),
+(23,'Beef Wellington',90,'Hard','Premium continental dinner',
+'1. Sear beef on all sides.
+2. Prepare mushroom mixture.
+3. Wrap beef with mixture and pastry.
+4. Seal edges properly.
+5. Bake until golden brown.
+6. Let it rest before cutting.
+7. Serve hot.',
+3,6,5,'https://ritzyrecipes.com/wp-content/uploads/2025/10/cd-dvfdg-1024x683.png',1),
 
--- =========================
 -- SNACKS
--- =========================
 
-(29,'Samosa',30,'Hard','Indian crispy snack',
-'1. Fill dough. 2. Fold. 3. Fry.',
-5,3,4,'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&q=80&w=800',1),
+(24,'Samosa',30,'Hard','Indian crispy snack',
+'1. Prepare dough and let it rest.
+2. Make spiced potato filling.
+3. Roll dough and shape into cones.
+4. Fill with mixture and seal edges.
+5. Deep fry until golden.
+6. Drain oil.
+7. Serve hot.',
+5,3,4,'https://vegecravings.com/wp-content/uploads/2017/03/Aloo-Samosa-Recipe-Step-By-Step-Instructions.jpg',1),
 
-(30,'Garlic Bread',15,'Easy','Italian snack',
-'1. Apply garlic butter. 2. Bake bread.',
-5,1,3,'https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?auto=format&fit=crop&q=80&w=800',1),
+(25,'Garlic Bread',15,'Easy','Italian snack',
+'1. Mix butter with garlic and herbs.
+2. Spread mixture on bread slices.
+3. Place on baking tray.
+4. Bake until crisp.
+5. Remove from oven.
+6. Slice if needed.
+7. Serve warm.',
+5,1,3,'https://quickrecipesideas.com/wp-content/uploads/2025/02/Image_2-379.png',1),
 
-(31,'Nachos',10,'Easy','Mexican snack',
-'1. Arrange nachos. 2. Add cheese. 3. Bake.',
-5,2,3,'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&q=80&w=800',1),
+(26,'Nachos',10,'Easy','Mexican snack',
+'1. Arrange nachos on a tray.
+2. Sprinkle cheese evenly.
+3. Add toppings if desired.
+4. Bake until cheese melts.
+5. Remove from oven.
+6. Add sauces.
+7. Serve immediately.',
+5,2,3,'https://i.pinimg.com/originals/e5/c5/7b/e5c57b4babfada4a6a1bbcf8ae10c275.jpg',1),
 
-(32,'French Fries',20,'Easy','Continental snack',
-'1. Cut potato. 2. Fry till crisp.',
-5,6,3,'https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80&w=800',1),
+(27,'French Fries',20,'Easy','Continental snack',
+'1. Peel and cut potatoes into strips.
+2. Soak briefly in water.
+3. Heat oil for frying.
+4. Deep fry until golden and crispy.
+5. Drain excess oil.
+6. Sprinkle salt.
+7. Serve hot.',
+5,6,3,'https://img.freepik.com/premium-photo/yummy-french-fries_693425-7978.jpg',1),
 
-(33,'Spring Rolls',25,'Hard','Chinese snack',
-'1. Fill wrappers. 2. Roll. 3. Fry.',
-5,4,3,'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&q=80&w=800',1),
+(28,'Spring Rolls',25,'Hard','Chinese snack',
+'1. Prepare vegetable filling.
+2. Place filling on wrapper.
+3. Roll tightly and seal edges.
+4. Heat oil in pan.
+5. Deep fry until crispy.
+6. Drain oil.
+7. Serve hot.',
+5,4,3,'https://s.lightorangebean.com/media/20240914144947/Thai-Veggie-Spring-Rolls_done.png',1),
 
-(34,'Popcorn Chicken',25,'Medium','American snack',
-'1. Coat chicken. 2. Fry crisp.',
-5,5,1,'https://images.unsplash.com/photo-1562967916-eb82221dfb92?auto=format&fit=crop&q=80&w=800',1),
+(29,'Popcorn Chicken',25,'Medium','American snack',
+'1. Cut chicken into small pieces.
+2. Marinate with spices.
+3. Coat with flour mixture.
+4. Heat oil for frying.
+5. Fry until crispy and golden.
+6. Drain oil.
+7. Serve hot.',
+5,5,1,'https://tse3.mm.bing.net/th/id/OIP.jZmSFik7dRZ0J7GcYGyfDAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3',1),
 
-(46,'Kachori',55,'Hard','Indian stuffed snack',
-'1. Make dough. 2. Fill dal mix. 3. Shape. 4. Fry.',
-5,3,4,'https://images.unsplash.com/photo-1626500155537-df2d6c6f216a?auto=format&fit=crop&q=80&w=800',1),
+(30,'Kachori',55,'Hard','Indian stuffed snack',
+'1. Prepare dough and filling separately.
+2. Stuff filling into dough balls.
+3. Shape carefully.
+4. Heat oil on low flame.
+5. Fry slowly until crisp.
+6. Drain oil.
+7. Serve hot.',
+5,3,4,'https://images.herzindagi.info/image/2023/Jun/how-to-make-dal-kachori.jpg',1),
 
-(47,'Tamales',90,'Hard','Mexican steamed snack',
-'1. Prepare dough. 2. Fill husks. 3. Wrap. 4. Steam.',
-5,2,4,'https://images.unsplash.com/photo-1615870216519-2f9fa57506b8?auto=format&fit=crop&q=80&w=800',1),
+(31,'Tamales',90,'Hard','Mexican steamed snack',
+'1. Prepare dough using corn flour.
+2. Place dough on corn husks.
+3. Add filling in center.
+4. Wrap tightly.
+5. Steam until cooked.
+6. Cool slightly.
+7. Serve warm.',
+5,2,4,'https://www.isabeleats.com/wp-content/uploads/2019/12/pork-tamales-small-15b-650x650.jpg',1),
 
--- =========================
 -- DESSERT
--- =========================
 
-(35,'Gulab Jamun',30,'Hard','Indian sweet dessert',
-'1. Make balls. 2. Fry. 3. Soak in syrup.',
-4,3,4,'https://images.unsplash.com/photo-1605197161470-5b1d6dcb93c1?auto=format&fit=crop&q=80&w=800',1),
+(32,'Gulab Jamun',30,'Hard','Indian sweet dessert',
+'1. Prepare dough and shape into balls.
+2. Heat oil and fry until golden.
+3. Prepare sugar syrup separately.
+4. Add fried balls to syrup.
+5. Let them soak well.
+6. Rest for a few minutes.
+7. Serve warm.',
+4,3,4,'https://indianstyle.sg/wp-content/uploads/2024/10/01-Gulab-Jamun-600x600.png',1),
 
-(36,'Tiramisu',20,'Hard','Italian layered dessert',
-'1. Layer biscuits. 2. Add cream. 3. Chill.',
-4,1,4,'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&q=80&w=800',1),
+(33,'Tiramisu',20,'Hard','Italian layered dessert',
+'1. Prepare coffee mixture.
+2. Dip biscuits in coffee.
+3. Layer biscuits in dish.
+4. Add cream mixture on top.
+5. Repeat layers.
+6. Chill for several hours.
+7. Serve cold.',
+4,1,4,'https://grandmarecipes.com/wp-content/uploads/2024/09/Classic-Tiramisu-with-Coffee.webp',1),
 
-(37,'Churros',25,'Hard','Mexican dessert',
-'1. Pipe dough. 2. Fry. 3. Coat sugar.',
-4,2,4,'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&q=80&w=800',1),
+(34,'Churros',25,'Hard','Mexican dessert',
+'1. Prepare dough.
+2. Heat oil in pan.
+3. Pipe dough into hot oil.
+4. Fry until golden.
+5. Remove and drain oil.
+6. Coat with sugar.
+7. Serve warm.',
+4,2,4,'https://img.freepik.com/premium-photo/churros-dusted-with-cinnamon-sugar-served-wallpaper_987764-58268.jpg',1),
 
-(38,'Fruit Custard',20,'Easy','Continental dessert',
-'1. Prepare custard. 2. Add fruits. 3. Chill.',
-4,6,2,'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&q=80&w=800',1),
+(35,'Fruit Custard',20,'Easy','Continental dessert',
+'1. Prepare custard using milk.
+2. Let it cool slightly.
+3. Chop fresh fruits.
+4. Add fruits to custard.
+5. Mix gently.
+6. Refrigerate for some time.
+7. Serve chilled.',
+4,6,2,'https://www.sophiarecipe.com/wp-content/uploads/2025/04/chini1_39852_Fruit_Custard_is_a_classic_Indian_dessert_made_by__35b9bcba-c9f3-4b13-9308-2ac19c4bba57-819x1024.jpg',1),
 
-(39,'Sesame Balls',30,'Hard','Chinese sweet dessert',
-'1. Make dough balls. 2. Fry. 3. Serve.',
-4,4,4,'https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&q=80&w=800',1),
+(36,'Sesame Balls',30,'Hard','Chinese sweet dessert',
+'1. Prepare dough using rice flour.
+2. Shape into small balls.
+3. Coat with sesame seeds.
+4. Heat oil for frying.
+5. Fry until golden.
+6. Drain oil.
+7. Serve warm.',
+4,4,4,'https://i.pinimg.com/originals/61/65/ad/6165ad2e5186a45f274c8c977a58f59f.png',1),
 
-(40,'Brownie',30,'Easy','American chocolate dessert',
-'1. Make batter. 2. Bake. 3. Cut pieces.',
-4,5,1,'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&q=80&w=800',1),
+(37,'Brownie',30,'Easy','American chocolate dessert',
+'1. Prepare chocolate batter.
+2. Grease baking tray.
+3. Pour batter into tray.
+4. Bake in preheated oven.
+5. Check with toothpick.
+6. Cool before cutting.
+7. Serve pieces.',
+4,5,1,'https://png.pngtree.com/thumb_back/fw800/background/20240706/pngtree-stack-of-moist-fudgy-brownies-image_15862023.jpg',1),
 
-(48,'Cannoli',60,'Hard','Italian crispy dessert',
-'1. Make shells. 2. Fry crisp. 3. Fill cream.',
-4,1,5,'https://images.unsplash.com/photo-1612198790700-0ff08cb726e5?auto=format&fit=crop&q=80&w=800',1),
+(38,'Cannoli',60,'Hard','Italian crispy dessert',
+'1. Prepare dough for shells.
+2. Shape into tubes.
+3. Fry until crisp.
+4. Prepare ricotta filling.
+5. Fill shells carefully.
+6. Dust with sugar.
+7. Serve fresh.',
+4,1,5,'https://img.freepik.com/premium-photo/delicious-cannoli-with-ricotta-filling_1036998-199837.jpg',1),
 
-(49,'Baked Cheesecake',70,'Hard','Rich American dessert',
-'1. Prepare base. 2. Add batter. 3. Bake. 4. Chill.',
-4,5,5,'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&q=80&w=800',1),
+(39,'Baked Cheesecake',70,'Hard','Rich American dessert',
+'1. Prepare biscuit base.
+2. Press into baking pan.
+3. Prepare cream cheese mixture.
+4. Pour over base.
+5. Bake slowly.
+6. Cool completely.
+7. Chill before serving.',
+4,5,5,'https://masonrecipes.com/wp-content/uploads/2025/02/Image_3-109.png',1),
 
-(50,'Mooncake',80,'Hard','Traditional Chinese dessert',
-'1. Prepare dough. 2. Fill paste. 3. Mold. 4. Bake.',
-4,4,4,'https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&q=80&w=800',1);
+(40,'Mooncake',80,'Hard','Traditional Chinese dessert',
+'1. Prepare dough and filling.
+2. Shape into round portions.
+3. Place in mold.
+4. Press to form design.
+5. Bake until golden.
+6. Cool completely.
+7. Serve.',
+4,4,4,'https://mooncakecosplay.com/wp-content/uploads/2019/09/mooncakecosplay-237202019.jpg',1);
 
 -- Link Ingredients to Recipes
 
 INSERT IGNORE INTO RECIPE_INGREDIENT (recipe_id, ingredient_id, quantity_desc) VALUES
 
--- BREAKFAST
-(11,11,'2 cups'),
-(11,31,'200g'),
-(11,32,'1 tsp'),
+(1,11,'2 cups'),
+(1,31,'200g'),
+(1,32,'1 tsp'),
 
-(12,16,'2'),
-(12,61,'50g'),
-(12,62,'2 slices'),
-(12,1,'100g'),
+(2,16,'2'),
+(2,61,'50g'),
+(2,62,'2 slices'),
+(2,1,'100g'),
 
-(13,13,'2'),
-(13,16,'2'),
-(13,41,'100g'),
+(3,13,'2'),
+(3,16,'2'),
+(3,41,'100g'),
+(3,61,'50g'),
+
+(4,18,'200g'),
+(4,17,'250ml'),
+(4,16,'1'),
+(4,20,'30g'),
+
+(5,28,'200g'),
+(5,29,'1'),
+(5,30,'1'),
+(5,26,'1 tbsp'),
+
+(6,18,'200g'),
+(6,17,'200ml'),
+(6,16,'1'),
+(6,19,'40g'),
+(6,56,'2 tbsp'),
+
+(7,63,'250g'),
+(7,2,'100g'),
+(7,59,'400ml'),
+
+(8,11,'300g'),
+(8,29,'1'),
+(8,30,'1'),
+(8,58,'100g'),
+
+(9,4,'250g'),
+(9,1,'200g'),
+(9,3,'2 cloves'),
+(9,57,'1 tsp'),
+
+(10,13,'2'),
+(10,61,'100g'),
+(10,29,'1'),
+(10,2,'1'),
+
+(11,60,'250g'),
+(11,38,'100g'),
+(11,1,'1'),
+(11,6,'1 tbsp'),
+
+(12,11,'250g'),
+(12,29,'1'),
+(12,30,'1'),
+(12,26,'2 tbsp'),
+
+(13,39,'2'),
+(13,40,'2'),
 (13,61,'50g'),
+(13,38,'50g'),
 
-(14,18,'200g'),
-(14,17,'250ml'),
-(14,16,'1'),
-(14,20,'30g'),
+(14,64,'250g'),
+(14,1,'200g'),
+(14,61,'200g'),
+(14,60,'250g'),
 
-(15,28,'200g'),
-(15,29,'1'),
-(15,30,'1'),
-(15,26,'1 tbsp'),
+(15,65,'1 whole'),
+(15,26,'30ml'),
+(15,66,'20g'),
+(15,3,'20g'),
 
-(16,18,'200g'),
-(16,17,'200ml'),
-(16,16,'1'),
-(16,19,'40g'),
-(16,56,'2 tbsp'),
+(16,21,'200g'),
+(16,1,'200g'),
+(16,34,'50ml'),
+(16,19,'20g'),
 
-(41,63,'250g'),      -- Urad Dal
-(41,2,'100g'),
-(41,59,'400ml'),
+(17,33,'1'),
+(17,10,'150g'),
+(17,1,'100g'),
+(17,9,'10g'),
 
--- LUNCH
-(17,11,'300g'),
-(17,29,'1'),
-(17,30,'1'),
-(17,58,'100g'),
+(18,54,'4'),
+(18,41,'150g'),
+(18,38,'50g'),
+(18,61,'50g'),
 
-(18,4,'250g'),
-(18,1,'200g'),
-(18,3,'2 cloves'),
-(18,57,'1 tsp'),
+(19,35,'300g'),
+(19,36,'1'),
+(19,19,'30g'),
+(19,3,'2 cloves'),
 
-(19,13,'2'),
-(19,61,'100g'),
-(19,29,'1'),
-(19,2,'1'),
+(20,11,'250g'),
+(20,26,'2 tbsp'),
+(20,29,'1'),
 
-(20,60,'250g'),
-(20,38,'100g'),
-(20,1,'1'),
-(20,6,'1 tbsp'),
+(21,37,'250g'),
+(21,61,'150g'),
+(21,17,'200ml'),
+(21,19,'20g'),
 
-(21,11,'250g'),
-(21,29,'1'),
-(21,30,'1'),
-(21,26,'2 tbsp'),
+(22,13,'6'),
+(22,60,'250g'),
+(22,61,'150g'),
+(22,67,'150g'),
 
-(22,39,'2'),
-(22,40,'2'),
-(22,61,'50g'),
-(22,38,'50g'),
+(23,15,'400g'),
+(23,68,'150g'),
+(23,69,'1'),
+(23,19,'40g'),
 
-(42,64,'250g'),      -- Lasagna Sheets
-(42,1,'200g'),
-(42,61,'200g'),
-(42,60,'250g'),
+(24,18,'200g'),
+(24,31,'200g'),
+(24,42,'50g'),
+(24,59,'300ml'),
 
-(43,65,'1 whole'),   -- Duck
-(43,26,'30ml'),
-(43,66,'20g'),       -- Honey
-(43,3,'20g'),
+(25,62,'4 slices'),
+(25,19,'40g'),
+(25,3,'20g'),
 
--- DINNER
-(23,21,'200g'),
-(23,1,'200g'),
-(23,34,'50ml'),
-(23,19,'20g'),
+(26,43,'200g'),
+(26,61,'100g'),
+(26,1,'50g'),
 
-(24,33,'1'),
-(24,10,'150g'),
-(24,1,'100g'),
-(24,9,'10g'),
+(27,31,'300g'),
+(27,59,'300ml'),
+(27,7,'5g'),
 
-(25,54,'4'),
-(25,41,'150g'),
-(25,38,'50g'),
-(25,61,'50g'),
+(28,45,'6'),
+(28,44,'100g'),
+(28,30,'50g'),
+(28,59,'300ml'),
 
-(26,35,'300g'),
-(26,36,'1'),
-(26,19,'30g'),
-(26,3,'2 cloves'),
-
-(27,11,'250g'),
-(27,26,'2 tbsp'),
-(27,29,'1'),
-
-(28,37,'250g'),
-(28,61,'150g'),
-(28,17,'200ml'),
-(28,19,'20g'),
-
-(44,13,'6'),
-(44,60,'250g'),
-(44,61,'150g'),
-(44,67,'150g'),      -- Tomato Sauce
-
-(45,15,'400g'),
-(45,68,'150g'),      -- Mushroom
-(45,69,'1'),         -- Pastry Sheet
-(45,19,'40g'),
-
--- SNACKS
-(29,18,'200g'),
-(29,31,'200g'),
-(29,42,'50g'),
+(29,60,'250g'),
+(29,18,'100g'),
 (29,59,'300ml'),
 
-(30,62,'4 slices'),
-(30,19,'40g'),
-(30,3,'20g'),
+(30,18,'250g'),
+(30,70,'150g'),
+(30,59,'400ml'),
 
-(31,43,'200g'),
-(31,61,'100g'),
-(31,1,'50g'),
+(31,71,'300g'),
+(31,60,'200g'),
+(31,72,'10'),
+(31,19,'50g'),
 
-(32,31,'300g'),
+(32,17,'100ml'),
+(32,20,'250g'),
 (32,59,'300ml'),
-(32,7,'5g'),
 
-(33,45,'6'),
-(33,44,'100g'),
-(33,30,'50g'),
-(33,59,'300ml'),
+(33,52,'150g'),
+(33,51,'100ml'),
+(33,34,'200ml'),
 
-(34,60,'250g'),
-(34,18,'100g'),
+(34,18,'200g'),
+(34,20,'100g'),
 (34,59,'300ml'),
 
-(46,18,'250g'),
-(46,70,'150g'),      -- Moong Dal
-(46,59,'400ml'),
+(35,17,'500ml'),
+(35,48,'50g'),
+(35,49,'100g'),
+(35,50,'100g'),
 
-(47,71,'300g'),      -- Corn Flour
-(47,60,'200g'),
-(47,72,'10'),        -- Corn Husk
-(47,19,'50g'),
+(36,47,'200g'),
+(36,46,'50g'),
+(36,20,'100g'),
 
--- DESSERT
-(35,17,'100ml'),
-(35,20,'250g'),
-(35,59,'300ml'),
+(37,18,'150g'),
+(37,53,'50g'),
+(37,20,'150g'),
+(37,19,'100g'),
 
-(36,52,'150g'),
-(36,51,'100ml'),
-(36,34,'200ml'),
+(38,18,'250g'),
+(38,73,'200g'),
+(38,20,'100g'),
+(38,59,'300ml'),
 
-(37,18,'200g'),
-(37,20,'100g'),
-(37,59,'300ml'),
+(39,74,'300g'),
+(39,52,'200g'),
+(39,19,'80g'),
+(39,20,'120g'),
 
-(38,17,'500ml'),
-(38,48,'50g'),
-(38,49,'100g'),
-(38,50,'100g'),
-
-(39,47,'200g'),
-(39,46,'50g'),
-(39,20,'100g'),
-
-(40,18,'150g'),
-(40,53,'50g'),
-(40,20,'150g'),
-(40,19,'100g'),
-
-(48,18,'250g'),
-(48,73,'200g'),      -- Ricotta Cheese
-(48,20,'100g'),
-(48,59,'300ml'),
-
-(49,74,'300g'),      -- Cream Cheese
-(49,52,'200g'),
-(49,19,'80g'),
-(49,20,'120g'),
-
-(50,18,'250g'),
-(50,75,'200g'),      -- Lotus Paste
-(50,16,'2'),
-(50,20,'80g');
+(40,18,'250g'),
+(40,75,'200g'),
+(40,16,'2'),
+(40,20,'80g');
 
 -- Insert Sample Ratings/Reviews
 INSERT IGNORE INTO RATING (recipe_id, user_id, rating_value, review_text) VALUES
 
--- BREAKFAST
-(11,3,5,'Crispy dosa and tasty filling.'),
-(12,2,4,'Simple breakfast and very tasty.'),
-(13,4,5,'Perfect quick breakfast option.'),
-(14,2,5,'Soft pancakes came out great.'),
-(15,4,4,'Light and flavorful noodles.'),
-(16,1,5,'Best waffles I made at home.'),
-(41,2,5,'Medu vada was crispy outside and soft inside.'),
+(1,3,5,'Crispy dosa and tasty filling.'),
+(2,2,4,'Simple breakfast and very tasty.'),
+(3,4,5,'Perfect quick breakfast option.'),
+(4,2,5,'Soft pancakes came out great.'),
+(5,4,4,'Light and flavorful noodles.'),
+(6,1,5,'Best waffles I made at home.'),
+(7,2,5,'Medu vada was crispy outside and soft inside.'),
 
--- LUNCH
-(17,3,5,'Excellent biryani aroma and taste.'),
-(18,2,4,'Spicy pasta was enjoyable.'),
-(19,4,5,'Cheesy quesadilla was amazing.'),
-(20,1,4,'Fresh salad and healthy meal.'),
-(21,2,5,'Classic fried rice taste.'),
-(22,4,4,'Burger was juicy and filling.'),
-(42,1,5,'Lasagna layers were rich and delicious.'),
-(43,3,5,'Peking duck was perfectly roasted and tasty.'),
+(8,3,5,'Excellent biryani aroma and taste.'),
+(9,2,4,'Spicy pasta was enjoyable.'),
+(10,4,5,'Cheesy quesadilla was amazing.'),
+(11,1,4,'Fresh salad and healthy meal.'),
+(12,2,5,'Classic fried rice taste.'),
+(13,4,4,'Burger was juicy and filling.'),
+(14,1,5,'Lasagna layers were rich and delicious.'),
+(15,3,5,'Peking duck was perfectly roasted and tasty.'),
 
--- DINNER
-(23,3,5,'Rich gravy and soft paneer cubes.'),
-(24,1,5,'Pizza was cheesy and fresh.'),
-(25,2,4,'Crunchy tacos tasted great.'),
-(26,4,5,'Fish was juicy and perfectly baked.'),
-(27,1,4,'Good combo with rice.'),
-(28,2,5,'Creamy mac and cheese loved by all.'),
-(44,4,5,'Enchiladas were cheesy and flavorful.'),
-(45,1,5,'Beef Wellington looked premium and tasted amazing.'),
+(16,3,5,'Rich gravy and soft paneer cubes.'),
+(17,1,5,'Pizza was cheesy and fresh.'),
+(18,2,4,'Crunchy tacos tasted great.'),
+(19,4,5,'Fish was juicy and perfectly baked.'),
+(20,1,4,'Good combo with rice.'),
+(21,2,5,'Creamy mac and cheese loved by all.'),
+(22,4,5,'Enchiladas were cheesy and flavorful.'),
+(23,1,5,'Beef Wellington looked premium and tasted amazing.'),
 
--- SNACKS
-(29,3,5,'Crispy samosa with tasty filling.'),
-(30,1,4,'Garlic bread was buttery and crisp.'),
-(31,2,5,'Perfect snack for movie night.'),
-(32,4,4,'French fries were crispy.'),
-(33,1,5,'Spring rolls were crunchy and tasty.'),
-(34,2,4,'Chicken bites were delicious.'),
-(46,3,5,'Kachori was flaky and spicy.'),
-(47,2,5,'Tamales were soft and flavorful.'),
+(24,3,5,'Crispy samosa with tasty filling.'),
+(25,1,4,'Garlic bread was buttery and crisp.'),
+(26,2,5,'Perfect snack for movie night.'),
+(27,4,4,'French fries were crispy.'),
+(28,1,5,'Spring rolls were crunchy and tasty.'),
+(29,2,4,'Chicken bites were delicious.'),
+(30,3,5,'Kachori was flaky and spicy.'),
+(31,2,5,'Tamales were soft and flavorful.'),
 
--- DESSERT
-(35,3,5,'Soft gulab jamun melted in mouth.'),
-(36,1,5,'Tiramisu tasted premium.'),
-(37,2,4,'Churros were sweet and crunchy.'),
-(38,4,5,'Fruit custard was refreshing.'),
-(39,1,4,'Sesame balls were unique and tasty.'),
-(40,2,5,'Brownie was rich and fudgy.'),
-(48,4,5,'Cannoli shell was crispy and creamy inside.'),
-(49,1,5,'Cheesecake was rich and smooth.'),
-(50,3,5,'Mooncake had authentic flavor and texture.');
+(32,3,5,'Soft gulab jamun melted in mouth.'),
+(33,1,5,'Tiramisu tasted premium.'),
+(34,2,4,'Churros were sweet and crunchy.'),
+(35,4,5,'Fruit custard was refreshing.'),
+(36,1,4,'Sesame balls were unique and tasty.'),
+(37,2,5,'Brownie was rich and fudgy.'),
+(38,4,5,'Cannoli shell was crispy and creamy inside.'),
+(39,1,5,'Cheesecake was rich and smooth.'),
+(40,3,5,'Mooncake had authentic flavor and texture.');
